@@ -30,7 +30,6 @@ namespace OtakuGameJam
 
         private void Start()
         {
-            UpdateGameState(GameState.MainMenu);
         }
 
         public void UpdateGameState(GameState newState)
@@ -40,6 +39,18 @@ namespace OtakuGameJam
             // TODO: Add logic to handle game state changes
 
             OnGameStateChange?.Invoke(newState);
+        }
+
+        public void StartGame()
+        {
+            Debug.Log("Starting game...");
+            UpdateGameState(GameState.Game);
+        }
+
+        public void QuitGame()
+        {
+            Debug.Log("Quitting game...");
+            Application.Quit();
         }
     }
 }

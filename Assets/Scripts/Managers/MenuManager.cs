@@ -12,6 +12,16 @@ namespace OtakuGameJam
             GameManager.OnGameStateChange += (state) => Debug.Log($"Game State Changed! {state}");
         }
 
+        public void ShowSettings()
+        {
+            Debug.Log("Showing settings...");
+        }
+
+        public void ShowHighScore()
+        {
+            Debug.Log("Showing high score...");
+        }
+
         private void OnDestroy()
         {
             // TODO: Unsubscribe from events
