@@ -14,11 +14,13 @@ namespace OtakuGameJam
 
         public void ShowSettings()
         {
+            // TODO: Show settings ui
             Debug.Log("Showing settings...");
         }
 
         public void ShowHighScore()
         {
+            // TODO: Show high score ui
             Debug.Log("Showing high score...");
         }
 

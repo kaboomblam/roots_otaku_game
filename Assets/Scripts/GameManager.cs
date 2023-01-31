@@ -12,8 +12,10 @@ namespace OtakuGameJam
 
         public static event Action<GameState> OnGameStateChange;
 
-        // Singleton pattern for GameManager
-        // ---
+        private GameObject _sceneLevelManager;
+
+        #region Singleton
+
         public static GameManager Instance { get; private set; }
 
         private void Awake()
@@ -21,6 +23,7 @@ namespace OtakuGameJam
             if (Instance == null)
             {
                 Instance = this;
+                _sceneLevelManager = GameObject.FindObjectOfType<LoadingManager>().gameObject;
             }
             else
             {
@@ -28,15 +31,49 @@ namespace OtakuGameJam
             }
         }
 
+        private void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
+        }
+
+        #endregion
+
         private void Start()
         {
+
         }
+
+        #region Load a Scene
+
+        public void LoadGameScene(SceneIndex index)
+        {
+            Debug.Log("Loading scene...");
+            _sceneLevelManager.GetComponent<LoadingManager>().LoadScene(index);
+        }
+
+        #endregion
+
+        #region Game State Management
 
         public void UpdateGameState(GameState newState)
         {
             CurrentGameState = newState;
 
-            // TODO: Add logic to handle game state changes
+            switch (newState)
+            {
+                case GameState.MainMenu:
+                    break;
+                case GameState.Game:
+                    LoadGameScene(SceneIndex.EmptyScene); // TODO: Change to load Game scene
+                    break;
+                case GameState.GameOver:
+                    break;
+                default:
+                    break;
+            }
 
             OnGameStateChange?.Invoke(newState);
         }
@@ -52,5 +89,7 @@ namespace OtakuGameJam
             Debug.Log("Quitting game...");
             Application.Quit();
         }
+
+        #endregion
     }
 }
