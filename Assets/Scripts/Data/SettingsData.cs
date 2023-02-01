@@ -5,7 +5,9 @@ namespace OtakuGameJam
     /// </summary>
     static class SettingsData
     {
-        public static float time;
+        public static int countDownToStart;
         public static Map map;
+
+        public static int laps;
     }
 }
