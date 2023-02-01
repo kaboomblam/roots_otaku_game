@@ -2928,7 +2928,7 @@ MonoBehaviour:
   _useGlobalSettings: 0
   _laps: 3
   currentTime: 0
-  _countdownToStart: 3
+  _countdownToStart: 8
   _playState: 0
 --- !u!4 &2106740723
 Transform:

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using OtakuGameJam.Constants;
+using System;
 
 namespace OtakuGameJam
 {
@@ -54,6 +55,14 @@ namespace OtakuGameJam
             }
         }
 
+        private void Update()
+        {
+            UpdateElapsedTime();
+            var t = TimeSpan.FromSeconds(currentTime);
+            Debug.Log($"Current Time: {t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D2}");
+            // Debug.Log($"Current Time: {currentTime:C2}");
+        }
+
         #region GamePlayState
 
         public void UpdateGamePlayState(GamePlayState newState)
@@ -61,7 +70,7 @@ namespace OtakuGameJam
             switch (newState)
             {
                 case GamePlayState.Countdown:
-                    StartCoroutine(countdownToStartTimer());
+                    StartCoroutine(CountdownToStartTimer());
                     break;
                 case GamePlayState.Playing:
                     break;
@@ -75,7 +84,8 @@ namespace OtakuGameJam
         #endregion
 
 
-        IEnumerator countdownToStartTimer()
+        #region Time
+        IEnumerator CountdownToStartTimer()
         {
             while (_countdownToStart > 0)
             {
@@ -84,5 +94,10 @@ namespace OtakuGameJam
                 Debug.Log($"Countdown: {_countdownToStart}");
             }
         }
+
+        void UpdateElapsedTime() => currentTime += Time.deltaTime;
+
+
+        #endregion
     }
 }
