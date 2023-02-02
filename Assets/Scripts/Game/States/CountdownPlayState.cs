@@ -7,8 +7,6 @@ namespace OtakuGameJam
         internal override void EnterState(GamePlayManager gpm)
         {
             Debug.Log("Entered Countdown State...");
-
-            // gpm.ChangeState(Constants.PlayStateValues.Playing);
         }
 
         internal override void UpdateState(GamePlayManager gpm)
