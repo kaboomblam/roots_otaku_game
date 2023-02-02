@@ -7,8 +7,11 @@ namespace OtakuGameJam
     public class GamePlayManager : MonoBehaviour
     {
         [Header("Dependencies")]
+        [Space]
+        [Header("UI")]
         [SerializeField]
         public TMPro.TextMeshProUGUI DEBUG_StateText;
+        public TMPro.TextMeshProUGUI countdownText;
 
         [Space]
 
