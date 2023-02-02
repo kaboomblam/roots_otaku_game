@@ -3155,7 +3155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_StateText: {fileID: 1769445234}
   _useGlobalSettings: 0
-  _playState: 0
+  _playState: 3
   countdownToStart: 4
 --- !u!4 &2106740723
 Transform:

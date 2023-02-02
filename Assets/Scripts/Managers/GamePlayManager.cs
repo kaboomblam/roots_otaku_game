@@ -6,13 +6,15 @@ namespace OtakuGameJam
 {
     public class GamePlayManager : MonoBehaviour
     {
-
-        [Header("Test & Debug")]
+        [Header("Dependencies")]
         [SerializeField]
         public TMPro.TextMeshProUGUI DEBUG_StateText;
+
+        [Space]
+
+        [Header("Debug")]
         [SerializeField]
         private bool _useGlobalSettings;
-
         [DisableProperty("_useGlobalSettings", true)]
         [SerializeField]
         private PlayStateValues _playState = PlayStateValues.Countdown;
@@ -38,7 +40,9 @@ namespace OtakuGameJam
 
         void Update()
         {
-            var stateHasBeenChangedManually = GetStateFromEnum(_playState) != currentState;
+            var currentPlayStateValue = GetStateFromEnum(_playState);
+            var stateHasBeenChangedManually = currentPlayStateValue != currentState;
+
             if (stateHasBeenChangedManually) ChangeState(_playState);
 
             // ---

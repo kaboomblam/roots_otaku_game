@@ -9,14 +9,14 @@ namespace OtakuGameJam
             Debug.Log("Entered Paused State...");
         }
 
-        internal override void ExitState(GamePlayManager gpm)
+        internal override void UpdateState(GamePlayManager gpm)
         {
             gpm.DEBUG_StateText.SetText("Paused State...");
         }
 
-        internal override void UpdateState(GamePlayManager gpm)
+        internal override void ExitState(GamePlayManager gpm)
         {
-            Debug.Log("Exited Paused State...");
+            Debug.Log("Exited Paused State !!!!...");
         }
     }
 }
