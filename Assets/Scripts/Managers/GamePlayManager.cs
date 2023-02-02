@@ -18,11 +18,11 @@ namespace OtakuGameJam
         [Header("Debug")]
         [SerializeField]
         private bool _useGlobalSettings;
-        [DisableProperty("_useGlobalSettings", true)]
+        [DisablePropertyControl("_useGlobalSettings", true)]
         [SerializeField]
         private PlayStateValues _playState = PlayStateValues.Countdown;
 
-        [DisableProperty("_useGlobalSettings", true)]
+        [DisablePropertyControl("_useGlobalSettings", true)]
         [Range(0, 20)]
         public int countdownToStart = 3;
 

@@ -10,6 +10,7 @@ namespace OtakuGameJam
             Debug.Log("Entered Countdown State...");
 
             timer = gpm.gameObject.AddComponent<TimerBehaviour>();
+            timer.CreateTimer(gpm.countdownToStart, isCountingDown: true);
         }
 
 
