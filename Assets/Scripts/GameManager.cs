@@ -8,9 +8,9 @@ namespace OtakuGameJam
 {
     public class GameManager : MonoBehaviour
     {
-        public GameState CurrentGameState { get; private set; }
+        public GameStateValues CurrentGameState { get; private set; }
 
-        public static event Action<GameState> OnGameStateChange;
+        public static event Action<GameStateValues> OnGameStateChange;
 
         private GameObject _sceneLevelManager;
 
@@ -58,18 +58,18 @@ namespace OtakuGameJam
 
         #region Game State Management
 
-        public void UpdateGameState(GameState newState)
+        public void UpdateGameState(GameStateValues newState)
         {
             CurrentGameState = newState;
 
             switch (newState)
             {
-                case GameState.MainMenu:
+                case GameStateValues.MainMenu:
                     break;
-                case GameState.Game:
+                case GameStateValues.Game:
                     LoadGameScene(SceneIndex.EmptyScene); // TODO: Change to load Game scene
                     break;
-                case GameState.GameOver:
+                case GameStateValues.GameOver:
                     break;
                 default:
                     break;
@@ -81,7 +81,7 @@ namespace OtakuGameJam
         public void StartGame()
         {
             Debug.Log("Starting game...");
-            UpdateGameState(GameState.Game);
+            UpdateGameState(GameStateValues.Game);
         }
 
         public void QuitGame()

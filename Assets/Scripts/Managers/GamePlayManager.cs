@@ -1,103 +1,75 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using OtakuGameJam.Attributes;
 using OtakuGameJam.Constants;
-using System;
+using UnityEngine;
 
 namespace OtakuGameJam
 {
     public class GamePlayManager : MonoBehaviour
     {
-        [Tooltip("Allows for GamePlay Manager to use Game wide Settings or Defaults")]
+
+        [Header("Test & Debug")]
         [SerializeField]
-        private bool _useGlobalSettings = false;
-
-        [Space]
-
-        [Header("Game Settings")]
-        [Range(1, 5)]
+        public TMPro.TextMeshProUGUI DEBUG_StateText;
         [SerializeField]
-        private int _laps = 3;
+        private bool _useGlobalSettings;
 
+        [DisableProperty("_useGlobalSettings", true)]
+        [SerializeField]
+        private PlayStateValues _playState = PlayStateValues.Countdown;
 
-        [HideInInspector]
-        public float currentTime = 0f;
-
-        [Header("Time Settings")]
+        [DisableProperty("_useGlobalSettings", true)]
         [Range(0, 20)]
-        public int _countdownToStart = 3;
+        public int countdownToStart = 3;
 
-        [Header("Debug Settings")]
-        [SerializeField]
-        private GamePlayState _playState = GamePlayState.Countdown;
+        // Finite State Machine
+        // --------------------
+        PlayState currentState;
+        PlayState CountdownState = new CountdownPlayState();
+        PlayState PlayingState = new PlayingPlayState();
+        PlayState PausedState = new PausedPlayState();
+        PlayState GameOverState = new GameOverPlayState();
 
-        public GamePlayState playState
+        void Start()
         {
-            get { return _playState; }
-            private set
-            {
-                _playState = value;
-                UpdateGamePlayState(_playState);
-            }
+            currentState = GetStateFromEnum(_playState);
+
+            currentState.EnterState(this);
         }
 
-        private void Start()
+        void Update()
         {
-            if (_useGlobalSettings)
-            {
-                _laps = SettingsData.laps;
-                _countdownToStart = SettingsData.countDownToStart;
-                UpdateGamePlayState(GamePlayState.Countdown);
-            }
-            else
-            {
-                UpdateGamePlayState(_playState);
-            }
+            var stateHasBeenChangedManually = GetStateFromEnum(_playState) != currentState;
+            if (stateHasBeenChangedManually) ChangeState(_playState);
+
+            // ---
+
+            currentState.UpdateState(this);
         }
 
-        private void Update()
+        public void ChangeState(PlayStateValues value)
         {
-            UpdateElapsedTime();
-            var t = TimeSpan.FromSeconds(currentTime);
-            Debug.Log($"Current Time: {t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D2}");
-            // Debug.Log($"Current Time: {currentTime:C2}");
+            PlayState newState = GetStateFromEnum(value);
+
+            currentState.ExitState(this);
+            currentState = newState;
+            currentState.EnterState(this);
         }
 
-        #region GamePlayState
-
-        public void UpdateGamePlayState(GamePlayState newState)
+        private PlayState GetStateFromEnum(PlayStateValues value)
         {
-            switch (newState)
+            switch (value)
             {
-                case GamePlayState.Countdown:
-                    StartCoroutine(CountdownToStartTimer());
-                    break;
-                case GamePlayState.Playing:
-                    break;
-                case GamePlayState.Paused:
-                    break;
-                case GamePlayState.GameOver:
-                    break;
+                case PlayStateValues.Countdown:
+                    return CountdownState;
+                case PlayStateValues.Playing:
+                    return PlayingState;
+                case PlayStateValues.Paused:
+                    return PausedState;
+                case PlayStateValues.GameOver:
+                    return GameOverState;
+                default:
+                    return null;
             }
         }
-
-        #endregion
-
-
-        #region Time
-        IEnumerator CountdownToStartTimer()
-        {
-            while (_countdownToStart > 0)
-            {
-                yield return new WaitForSeconds(1f);
-                _countdownToStart--;
-                Debug.Log($"Countdown: {_countdownToStart}");
-            }
-        }
-
-        void UpdateElapsedTime() => currentTime += Time.deltaTime;
-
-
-        #endregion
     }
 }

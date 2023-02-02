@@ -1,6 +1,6 @@
 namespace OtakuGameJam.Constants
 {
-    public enum GamePlayState
+    public enum PlayStateValues
     {
         Countdown,
         Playing,

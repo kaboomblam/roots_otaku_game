@@ -1,6 +1,6 @@
 namespace OtakuGameJam.Constants
 {
-    public enum GameState
+    public enum GameStateValues
     {
         MainMenu,
         Game,
