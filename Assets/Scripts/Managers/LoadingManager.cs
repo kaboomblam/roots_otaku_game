@@ -32,17 +32,6 @@ namespace OtakuGameJam
             // show loading ui incase scene takes a while to load
             StartCoroutine(LoadingScene(scene));
 
-            // scene.allowSceneActivation = false;
-
-            // _loadingCanvas.SetActive(true);
-
-            // do
-            // { // do atleast once
-            //     // TODO: Update loader ui...
-            // } while (!scene.isDone);
-
-            // scene.allowSceneActivation = true;
-
         }
 
         IEnumerator LoadingScene(AsyncOperation scene)
