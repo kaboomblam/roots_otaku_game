@@ -3156,11 +3156,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_StateText: {fileID: 1769445234}
   countdownText: {fileID: 370651179034876062}
+  goText: {fileID: 370651179251539661}
+  cancelButton: {fileID: 370651179817188525}
   completeCountdownHideElements:
   - {fileID: 370651180566863448}
   _useGlobalSettings: 0
   _playState: 0
-  countdownToStart: 10
+  countdownToStart: 5
 --- !u!4 &2106740723
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using OtakuGameJam.Attributes;
 using OtakuGameJam.Constants;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace OtakuGameJam
 {
@@ -12,6 +13,8 @@ namespace OtakuGameJam
         public TMPro.TextMeshProUGUI DEBUG_StateText;
         [Header("Countdown")]
         public TMPro.TextMeshProUGUI countdownText;
+        public TMPro.TextMeshProUGUI goText;
+        public Button cancelButton;
         public GameObject[] completeCountdownHideElements;
 
         [Space]
@@ -24,7 +27,7 @@ namespace OtakuGameJam
         private PlayStateValues _playState = PlayStateValues.Countdown;
 
         [DisablePropertyControl("_useGlobalSettings", true)]
-        [Range(0, 20)]
+        [Range(3, 20)]
         public int countdownToStart = 3;
 
         // Finite State Machine
