@@ -67,28 +67,39 @@ namespace OtakuGameJam
         private void UpdateUI()
         {
             bool timerHalfway = _timer.TimeInteger <= _countdownTime / 2;
+            if (_timer.TimeInteger == 3)
+            {
+                _countdownText.color = new Color(1, 1, 0, 0.8f);
+                _goText.SetText("READY!");
+                _countdownText.SetText(_timer.TimeString);
+            }
             if (_timer.TimeInteger == 2)
             {
                 _countdownText.color = new Color(1, 0.5f, 0, 0.8f);
-                _goText.SetText("READY");
+                _goText.SetText("READY!");
+                _countdownText.SetText(_timer.TimeString);
+
             }
             else if (_timer.TimeInteger == 1)
             {
                 _countdownText.color = new Color(1, 0.25f, 0, 0.8f);
                 _goText.SetText("SET");
+                _countdownText.SetText(_timer.TimeString);
+
             }
             else if (_timer.TimeInteger <= 0)
             {
-                _countdownText.color = new Color32(0xf3, 0x9c, 0x12, 0xFF);
+                _countdownText.color = new Color32(0x7f, 0x8f, 0xa6, 0xFF);
                 _cancelButton.enabled = false;
-                _goText.SetText("GO!");
+                _goText.SetText(" ");
+                _countdownText.SetText("GO!");
+
             }
             else
             {
                 _goText.SetText("Starting Race...");
             }
 
-            _countdownText.SetText(_timer.TimeString);
         }
 
         internal override bool ExitState(GamePlayManager gpm)

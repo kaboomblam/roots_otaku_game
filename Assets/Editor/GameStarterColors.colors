@@ -21,3 +21,5 @@ MonoBehaviour:
     m_Color: {r: 0.6117647, g: 0.41568628, b: 0.17254902, a: 0}
   - m_Name: Slight Gray
     m_Color: {r: 0.7924528, g: 0.7909927, b: 0.7887148, a: 1}
+  - m_Name: Sky blue
+    m_Color: {r: 0.3476326, g: 0.6152749, b: 0.7924528, a: 1}
