@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12323, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
+  m_Name: GameStarterColors
   m_EditorClassIdentifier: 
   m_Presets:
   - m_Name: Orange
     m_Color: {r: 0.9843137, g: 0.6901961, b: 0.23137255, a: 1}
+  - m_Name: Clay
+    m_Color: {r: 0.7921569, g: 0.37090632, b: 0.24313724, a: 1}

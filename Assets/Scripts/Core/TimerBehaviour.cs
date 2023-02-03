@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using OtakuGameJam.Attributes;
@@ -9,40 +10,76 @@ namespace OtakuGameJam
     {
         [SerializeField]
         [DisableProperty]
-        private float _time = 0f;
-        private bool _isCountingDown = false;
+        private int _time = 0;
+        private bool _isCountdownTimer = false;
+        private bool _isRunning = false;
+        private bool _isComplete = false;
 
-        // Start is called before the first frame update
-        void Start()
+        public string TimeString
         {
-
+            get => GetTimeString();
         }
 
-        // Update is called once per frame
-        void Update()
+        public int TimeInteger
         {
-
+            get => _time;
         }
 
-        public void CreateTimer(float time, bool isCountingDown = false)
+        private Coroutine _timerCoroutine;
+
+        public bool Running { get => _isRunning; }
+
+        public bool Complete { get => _isComplete; }
+
+        public void CreateTimer(int time, bool isCountDown = false)
         {
-            this._isCountingDown = isCountingDown;
+            this._isCountdownTimer = isCountDown;
             this._time = time;
         }
 
+        private string GetTimeString()
+        {
+            string countdownTimeString = _time.ToString();
+            string elapsedTimeString = TimeSpan.FromSeconds(_time).ToString(@"mm\:ss\:ff");
+
+            string timeString = _isCountdownTimer ? countdownTimeString : elapsedTimeString;
+
+            return timeString;
+        }
+
+        IEnumerator TimerCoroutine()
+        {
+            while (_isRunning && !_isComplete)
+            {
+                yield return new WaitForSeconds(1f);
+                if (_isCountdownTimer) DecreaseTime();
+                else IncreaseTime();
+            }
+
+        }
+
+        void DecreaseTime()
+        {
+            if (_time > 0) _time--;
+            else
+            {
+                _isRunning = false;
+                _isComplete = true;
+            }
+        }
+
+        void IncreaseTime() => _time++;
+
         public void RunTimer()
         {
-
+            _isRunning = true;
+            _timerCoroutine = StartCoroutine(TimerCoroutine());
         }
 
         public void StopTimer()
         {
-
-        }
-
-        IEnumerator StartTimer()
-        {
-            yield return null;
+            _isRunning = false;
+            StopCoroutine(_timerCoroutine);
         }
 
         public void DestroyComponent()

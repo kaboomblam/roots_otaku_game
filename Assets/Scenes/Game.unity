@@ -1174,8 +1174,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 3133523397
+  m_fontColor: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 0.7294118}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3961,10 +3961,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_StateText: {fileID: 1769445234}
-  _countdownText: {fileID: 495169536}
+  countdownText: {fileID: 495169536}
   _useGlobalSettings: 0
-  _playState: 3
-  countdownToStart: 4
+  _playState: 0
+  countdownToStart: 10
 --- !u!4 &2106740723
 Transform:
   m_ObjectHideFlags: 0
