@@ -31,14 +31,13 @@ namespace OtakuGameJam
 
             // show loading ui incase scene takes a while to load
             StartCoroutine(LoadingScene(scene));
-
         }
 
         IEnumerator LoadingScene(AsyncOperation scene)
         {
             do
             { // do atleast once
-                Debug.Log("Loading scene... progress ${scene.progress}%");
+                Debug.Log($"Loading scene... progress {scene.progress}%");
                 yield return new WaitForSeconds(1f);
             } while (!scene.isDone);
         }

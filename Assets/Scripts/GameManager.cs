@@ -67,7 +67,7 @@ namespace OtakuGameJam
                 case GameStateValues.MainMenu:
                     break;
                 case GameStateValues.Game:
-                    LoadGameScene(SceneIndex.EmptyScene); // TODO: Change to load Game scene
+                    LoadGameScene(SceneIndex.Game);
                     break;
                 case GameStateValues.GameOver:
                     break;
