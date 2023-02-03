@@ -1852,7 +1852,7 @@ GameObject:
   - component: {fileID: 1198699261}
   - component: {fileID: 1198699260}
   m_Layer: 5
-  m_Name: TimeText
+  m_Name: HUDTimeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3621,9 +3621,9 @@ MonoBehaviour:
   cancelButton: {fileID: 370651179817188525}
   completeCountdownHideElements:
   - {fileID: 370651180566863448}
-  timeText: {fileID: 1198699260}
+  hudLapTimeText: {fileID: 1198699260}
   _useGlobalSettings: 0
-  _playState: 0
+  _beginningState: 1
   countdownToStart: 5
 --- !u!4 &2106740723
 Transform:

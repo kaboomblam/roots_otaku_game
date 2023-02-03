@@ -19,7 +19,7 @@ namespace OtakuGameJam
 
         [Space]
         [Header("HUD")]
-        public TMPro.TextMeshProUGUI timeText;
+        public TMPro.TextMeshProUGUI hudLapTimeText;
 
         [Space]
 

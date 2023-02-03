@@ -15,15 +15,7 @@ namespace OtakuGameJam
         private bool _isRunning = false;
         private bool _isComplete = false;
 
-        public string TimeString
-        {
-            get => GetTimeString();
-        }
-
-        public int TimeInteger
-        {
-            get => _time;
-        }
+        private const int MIN_TIME_FOR_COUNTDOWN = 3;
 
         private Coroutine _timerCoroutine;
 
@@ -37,25 +29,25 @@ namespace OtakuGameJam
             this._time = time;
         }
 
-        private string GetTimeString()
+        public string TimeString
         {
-            string countdownTimeString = _time.ToString();
-            string elapsedTimeString = TimeSpan.FromSeconds(_time).ToString(@"mm\:ss\:ff");
-
-            string timeString = _isCountdownTimer ? countdownTimeString : elapsedTimeString;
-
-            return timeString;
+            get => GetTimeString();
         }
 
-        IEnumerator TimerCoroutine()
+        public int TimeInteger
         {
-            while (_isRunning && !_isComplete)
-            {
-                yield return new WaitForSeconds(1f);
-                if (_isCountdownTimer) DecreaseTime();
-                else IncreaseTime();
-            }
+            get => _time;
+        }
 
+        private string GetTimeString()
+        {
+            string countdownTimeStringFormat = _time.ToString();
+
+            string elapsedTimeStringFormat = TimeSpan.FromSeconds(_time).ToString(@"mm\:ss\:ff");
+
+            string timeFormatReturned = _isCountdownTimer ? countdownTimeStringFormat : elapsedTimeStringFormat;
+
+            return timeFormatReturned;
         }
 
         void DecreaseTime()
@@ -80,6 +72,35 @@ namespace OtakuGameJam
         {
             _isRunning = false;
             StopCoroutine(_timerCoroutine);
+        }
+
+        IEnumerator TimerCoroutine()
+        {
+            bool timeIsMinAllowed = _time < MIN_TIME_FOR_COUNTDOWN;
+
+            bool inputTooLowForCountdown = _isCountdownTimer && timeIsMinAllowed;
+
+            if (inputTooLowForCountdown)
+            {
+                Debug.Log($"Current timer input: {_time}, too low for a Countdown! Must be at least {MIN_TIME_FOR_COUNTDOWN}. Is Complete {_isComplete}");
+            }
+            else
+            {
+                bool timerNotComplete = _isRunning && !_isComplete;
+
+                while (timerNotComplete)
+                {
+                    yield return new WaitForSeconds(1f);
+                    if (_isCountdownTimer)
+                    {
+                        if (_isCountdownTimer) DecreaseTime();
+                        else IncreaseTime();
+                    }
+                    else IncreaseTime();
+                }
+            }
+
+            yield return null;
         }
 
         public void DestroyComponent()
