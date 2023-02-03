@@ -17,3 +17,7 @@ MonoBehaviour:
     m_Color: {r: 0.9843137, g: 0.6901961, b: 0.23137255, a: 1}
   - m_Name: Clay
     m_Color: {r: 0.7921569, g: 0.37090632, b: 0.24313724, a: 1}
+  - m_Name: Bg
+    m_Color: {r: 0.6117647, g: 0.41568628, b: 0.17254902, a: 0}
+  - m_Name: Slight Gray
+    m_Color: {r: 0.7924528, g: 0.7909927, b: 0.7887148, a: 1}
