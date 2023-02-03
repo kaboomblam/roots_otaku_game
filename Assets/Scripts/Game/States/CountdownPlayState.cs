@@ -32,6 +32,16 @@ namespace OtakuGameJam
             _goText = gpm.goText;
             _cancelButton = gpm.cancelButton;
             _completeCountdownHideElements = gpm.completeCountdownHideElements;
+
+            VisibleDependentElements(true); // ensure elements are active
+        }
+
+        void VisibleDependentElements(bool active)
+        {
+            foreach (GameObject elem in _completeCountdownHideElements)
+            {
+                elem.SetActive(active);
+            }
         }
 
 
@@ -48,10 +58,7 @@ namespace OtakuGameJam
             }
             else if (timerCompleted)
             {
-                foreach (GameObject elem in _completeCountdownHideElements)
-                {
-                    elem.SetActive(false);
-                }
+                VisibleDependentElements(false);
             }
         }
 
