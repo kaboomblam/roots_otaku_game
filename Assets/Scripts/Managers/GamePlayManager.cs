@@ -18,13 +18,17 @@ namespace OtakuGameJam
         public GameObject[] completeCountdownHideElements;
 
         [Space]
+        [Header("HUD")]
+        public TMPro.TextMeshProUGUI timeText;
+
+        [Space]
 
         [Header("Debug")]
         [SerializeField]
         private bool _useGlobalSettings;
         [DisablePropertyControl("_useGlobalSettings", true)]
         [SerializeField]
-        private PlayStateValues _playState = PlayStateValues.Countdown;
+        private PlayStateValues _beginningState = PlayStateValues.Countdown;
 
         [DisablePropertyControl("_useGlobalSettings", true)]
         [Range(3, 20)]
@@ -32,7 +36,7 @@ namespace OtakuGameJam
 
         // Finite State Machine
         // --------------------
-        PlayState currentState;
+        PlayState CurrentState;
         PlayState CountdownState = new CountdownPlayState();
         PlayState PlayingState = new PlayingPlayState();
         PlayState PausedState = new PausedPlayState();
@@ -40,30 +44,30 @@ namespace OtakuGameJam
 
         void Start()
         {
-            currentState = GetStateFromEnum(_playState);
+            CurrentState = GetStateFromEnum(_beginningState);
 
-            currentState.EnterState(this);
+            CurrentState.EnterState(this);
         }
 
         void Update()
         {
-            var currentPlayStateValue = GetStateFromEnum(_playState);
-            var stateHasBeenChangedManually = currentPlayStateValue != currentState;
-
-            if (stateHasBeenChangedManually) ChangeState(_playState);
-
-            // ---
-
-            currentState.UpdateState(this);
+            CurrentState.UpdateState(this);
         }
 
         public void ChangeState(PlayStateValues value)
         {
-            PlayState newState = GetStateFromEnum(value);
+            bool isStateReadyToExit = CurrentState.ExitState(this);
 
-            currentState.ExitState(this);
-            currentState = newState;
-            currentState.EnterState(this);
+            PlayState nextState = GetStateFromEnum(value);
+
+            if (isStateReadyToExit)
+            {
+                CurrentState = nextState;
+
+                PlayStateValues currPlayStateEnum = _beginningState = GetEnumFromState(CurrentState);
+
+                CurrentState.EnterState(this);
+            }
         }
 
         private PlayState GetStateFromEnum(PlayStateValues value)
@@ -82,5 +86,15 @@ namespace OtakuGameJam
                     return null;
             }
         }
+
+        private PlayStateValues GetEnumFromState(PlayState state)
+        {
+            if (state == CountdownState) return PlayStateValues.Countdown;
+            else if (state == PlayingState) return PlayStateValues.Playing;
+            else if (state == PausedState) return PlayStateValues.Paused;
+            else if (state == GameOverState) return PlayStateValues.GameOver;
+            else return PlayStateValues.Countdown;
+        }
+
     }
 }

@@ -16,9 +16,10 @@ namespace OtakuGameJam
 
         }
 
-        internal override void ExitState(GamePlayManager gpm)
+        internal override bool ExitState(GamePlayManager gpm)
         {
             Debug.Log("Exited GameOver State...");
+            return true;
         }
     }
 }

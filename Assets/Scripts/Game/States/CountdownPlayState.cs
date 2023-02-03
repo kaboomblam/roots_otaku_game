@@ -16,6 +16,8 @@ namespace OtakuGameJam
 
         private GameObject[] _completeCountdownHideElements;
 
+        private bool _calledForExit = false;
+
         internal override void EnterState(GamePlayManager gpm)
         {
             Debug.Log("Entered Countdown State...");
@@ -44,7 +46,6 @@ namespace OtakuGameJam
             }
         }
 
-
         internal override void UpdateState(GamePlayManager gpm)
         {
             bool timerHasNotStarted = !_timer.Running && !_timer.Complete;
@@ -59,6 +60,7 @@ namespace OtakuGameJam
             else if (timerCompleted)
             {
                 VisibleDependentElements(false);
+                gpm.ChangeState(Constants.PlayStateValues.Playing);
             }
         }
 
@@ -89,10 +91,28 @@ namespace OtakuGameJam
             _countdownText.SetText(_timer.TimeString);
         }
 
-        internal override void ExitState(GamePlayManager gpm)
+        internal override bool ExitState(GamePlayManager gpm)
         {
-            Debug.Log("Exited Countdown State...");
+            bool alreadyCalledForExit = _calledForExit;
+
+            if (alreadyCalledForExit)
+            {
+                bool timerElementExists = _timer != null;
+
+                if (timerElementExists)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
             _timer.DestroyComponent();
+
+            _calledForExit = true;
+            return false;
         }
 
     }

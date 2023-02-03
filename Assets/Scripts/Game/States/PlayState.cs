@@ -6,6 +6,6 @@ namespace OtakuGameJam
 
         internal abstract void UpdateState(GamePlayManager gpm);
 
-        internal abstract void ExitState(GamePlayManager gpm);
+        internal abstract bool ExitState(GamePlayManager gpm);
     }
 }

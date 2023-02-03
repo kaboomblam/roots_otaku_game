@@ -4,20 +4,27 @@ namespace OtakuGameJam
 {
     public class PlayingPlayState : PlayState
     {
+        private TimerBehaviour _lapTimer;
+
         internal override void EnterState(GamePlayManager gpm)
         {
             Debug.Log("Entered Playing State...");
+            _lapTimer = gpm.gameObject.AddComponent<TimerBehaviour>();
+            _lapTimer.CreateTimer(10, true);
+            _lapTimer.RunTimer();
+
         }
 
         internal override void UpdateState(GamePlayManager gpm)
         {
-            gpm.DEBUG_StateText.SetText("Playing State...");
+            if (_lapTimer.Complete) gpm.ChangeState(Constants.PlayStateValues.GameOver);
         }
 
-        internal override void ExitState(GamePlayManager gpm)
+        internal override bool ExitState(GamePlayManager gpm)
         {
             Debug.Log("Exited Playing State...");
 
+            return true;
         }
     }
 }

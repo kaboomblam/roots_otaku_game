@@ -3621,6 +3621,7 @@ MonoBehaviour:
   cancelButton: {fileID: 370651179817188525}
   completeCountdownHideElements:
   - {fileID: 370651180566863448}
+  timeText: {fileID: 1198699260}
   _useGlobalSettings: 0
   _playState: 0
   countdownToStart: 5
