@@ -1,35 +1,53 @@
+using System;
 using UnityEngine;
 
 namespace OtakuGameJam
 {
     class CountdownPlayState : PlayState
     {
-        TimerBehaviour timer;
+        private TimerBehaviour _timer;
+
+        private TMPro.TextMeshProUGUI _countdownText;
+
+        private GameObject[] _completeCountdownHideElements;
+
         internal override void EnterState(GamePlayManager gpm)
         {
             Debug.Log("Entered Countdown State...");
 
-            timer = gpm.gameObject.AddComponent<TimerBehaviour>();
-            timer.CreateTimer(gpm.countdownToStart, isCountDown: true);
+            _timer = gpm.gameObject.AddComponent<TimerBehaviour>();
+
+            _timer.CreateTimer(gpm.countdownToStart, isCountDown: true);
+
+            _countdownText = gpm.countdownText;
+            _completeCountdownHideElements = gpm.completeCountdownHideElements;
         }
 
 
         internal override void UpdateState(GamePlayManager gpm)
         {
-            bool timerHasNotStarted = !timer.Running && !timer.Complete;
-            bool timerHasNotCompleted = !timer.Complete;
+            bool timerHasNotStarted = !_timer.Running && !_timer.Complete;
+            bool timerHasNotCompleted = !_timer.Complete;
+            bool timerCompleted = _timer.Complete;
 
-            if (timerHasNotStarted) timer.RunTimer();
+            if (timerHasNotStarted) _timer.RunTimer();
             else if (timerHasNotCompleted)
             {
-                gpm.countdownText.SetText(timer.TimeString);
+                _countdownText.SetText(_timer.TimeString);
+            }
+            else if (timerCompleted)
+            {
+                foreach (GameObject elem in _completeCountdownHideElements)
+                {
+                    elem.SetActive(false);
+                }
             }
         }
 
         internal override void ExitState(GamePlayManager gpm)
         {
             Debug.Log("Exited Countdown State...");
-            timer.DestroyComponent();
+            _timer.DestroyComponent();
         }
 
     }

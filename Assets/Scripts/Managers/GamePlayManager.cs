@@ -6,12 +6,13 @@ namespace OtakuGameJam
 {
     public class GamePlayManager : MonoBehaviour
     {
-        [Header("Dependencies")]
-        [Space]
         [Header("UI")]
         [SerializeField]
+        [Space]
         public TMPro.TextMeshProUGUI DEBUG_StateText;
+        [Header("Countdown")]
         public TMPro.TextMeshProUGUI countdownText;
+        public GameObject[] completeCountdownHideElements;
 
         [Space]
 
