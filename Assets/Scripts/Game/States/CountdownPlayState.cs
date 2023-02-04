@@ -69,21 +69,21 @@ namespace OtakuGameJam
             bool timerHalfway = _timer.TimeInteger <= _countdownTime / 2;
             if (_timer.TimeInteger == 3)
             {
-                _countdownText.color = new Color(1, 1, 0, 0.8f);
+                // _countdownText.color = new Color(1, 1, 0, 0.8f);
                 _goText.SetText("READY!");
                 _countdownText.SetText(_timer.TimeString);
             }
             if (_timer.TimeInteger == 2)
             {
-                _countdownText.color = new Color(1, 0.5f, 0, 0.8f);
+                // _countdownText.color = new Color(1, 0.5f, 0, 0.8f);
                 _goText.SetText("READY!");
                 _countdownText.SetText(_timer.TimeString);
 
             }
             else if (_timer.TimeInteger == 1)
             {
-                _countdownText.color = new Color(1, 0.25f, 0, 0.8f);
-                _goText.SetText("SET");
+                // _countdownText.color = new Color(1, 0.25f, 0, 0.8f);
+                _goText.SetText("Set");
                 _countdownText.SetText(_timer.TimeString);
 
             }
@@ -91,7 +91,7 @@ namespace OtakuGameJam
             {
                 _countdownText.color = new Color32(0x7f, 0x8f, 0xa6, 0xFF);
                 _cancelButton.enabled = false;
-                _goText.SetText(" ");
+                _goText.SetText("START");
                 _countdownText.SetText("GO!");
 
             }
