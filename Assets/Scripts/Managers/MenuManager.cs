@@ -14,6 +14,11 @@ namespace OtakuGameJam
             GameManager.OnGameStateChange += (state) => Debug.Log($"Game State Changed! {state}");
         }
 
+        public void ShowCarSelection()
+        {
+
+        }
+
         public void ShowSettings()
         {
             // TODO: Show settings ui
