@@ -6,6 +6,8 @@ namespace OtakuGameJam
 {
     public class MenuManager : MonoBehaviour
     {
+        public AudioClip buttonHoverSound;
+        public AudioClip buttonClickSound;
 
         private void Start()
         {
