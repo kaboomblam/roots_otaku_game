@@ -1,3 +1,4 @@
+using System.Collections;
 using OtakuGameJam.Attributes;
 using OtakuGameJam.Constants;
 using UnityEngine;
@@ -21,6 +22,10 @@ namespace OtakuGameJam
         [Header("HUD")]
         public TMPro.TextMeshProUGUI hudLapTimeText;
 
+        [Header("Music")]
+        public AudioClip gameAudio;
+
+
         [Space]
 
         [Header("Debug")]
@@ -33,6 +38,10 @@ namespace OtakuGameJam
         [DisablePropertyControl("_useGlobalSettings", true)]
         [Range(3, 20)]
         public int countdownToStart = 3;
+
+        [Header("Audio")]
+        public AudioClip countdownSound;
+
 
         // Finite State Machine
         // --------------------
@@ -47,6 +56,8 @@ namespace OtakuGameJam
             CurrentState = GetStateFromEnum(_beginningState);
 
             CurrentState.EnterState(this);
+
+            // FadeAudioIn();
         }
 
         void Update()
@@ -87,6 +98,7 @@ namespace OtakuGameJam
             }
         }
 
+
         private PlayStateValues GetEnumFromState(PlayState state)
         {
             if (state == CountdownState) return PlayStateValues.Countdown;
@@ -95,6 +107,22 @@ namespace OtakuGameJam
             else if (state == GameOverState) return PlayStateValues.GameOver;
             else return PlayStateValues.Countdown;
         }
+
+        // IEnumerable FadeAudioIn()
+        // {
+        //     // float currentTime = 0;
+        //     // float duration = 30000;
+        //     AudioSource audioSource = GetComponent<AudioSource>();
+        //     // float currentVolume = audioSource.volume;
+        //     float volume = audioSource.volume = 0;
+        //     while (currentTime < duration)
+        //     {
+        //         currentTime += Time.deltaTime;
+        //         audioSource.volume = Mathf.Lerp(0, 1, currentTime / duration);
+        //         yield return null;
+        //     }
+        //     yield break;
+        // }
 
     }
 }

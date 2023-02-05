@@ -18,9 +18,17 @@ namespace OtakuGameJam
 
         private bool _calledForExit = false;
 
+        private GamePlayManager _cachedGamePlayManager;
+        private AudioSource _cachedAudioSource;
+
+
         internal override void EnterState(GamePlayManager gpm)
         {
             Debug.Log("Entered Countdown State...");
+
+            _cachedGamePlayManager = gpm;
+            _cachedAudioSource = gpm.GetComponent<AudioSource>();
+
 
             _timer = gpm.gameObject.AddComponent<TimerBehaviour>();
             _countdownTime = gpm.countdownToStart;
@@ -72,19 +80,22 @@ namespace OtakuGameJam
                 // _countdownText.color = new Color(1, 1, 0, 0.8f);
                 _goText.SetText("READY!");
                 _countdownText.SetText(_timer.TimeString);
+                // PlayCountDownSound();
             }
             if (_timer.TimeInteger == 2)
             {
                 // _countdownText.color = new Color(1, 0.5f, 0, 0.8f);
                 _goText.SetText("READY!");
                 _countdownText.SetText(_timer.TimeString);
+                // PlayCountDownSound();
 
             }
             else if (_timer.TimeInteger == 1)
             {
                 // _countdownText.color = new Color(1, 0.25f, 0, 0.8f);
-                _goText.SetText("Set");
+                _goText.SetText("SET");
                 _countdownText.SetText(_timer.TimeString);
+                // PlayCountDownSound();
 
             }
             else if (_timer.TimeInteger <= 0)
@@ -93,12 +104,19 @@ namespace OtakuGameJam
                 _cancelButton.enabled = false;
                 _goText.SetText("START");
                 _countdownText.SetText("GO!");
+                PlayCountDownSound();
 
             }
             else
             {
-                _goText.SetText("Starting Race...");
+                _goText.SetText("STARTING...");
             }
+
+        }
+
+        void PlayCountDownSound()
+        {
+            _cachedAudioSource.PlayOneShot(_cachedGamePlayManager.countdownSound);
 
         }
 
