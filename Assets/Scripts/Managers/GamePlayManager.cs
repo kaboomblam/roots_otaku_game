@@ -42,6 +42,10 @@ namespace OtakuGameJam
         [Header("Audio")]
         public AudioClip countdownSound;
 
+        [Header("UIs")]
+        public GameObject pauseUI;
+        public GameObject gameOverUI;
+
 
         // Finite State Machine
         // --------------------
@@ -96,6 +100,17 @@ namespace OtakuGameJam
                 default:
                     return null;
             }
+        }
+
+        public void GoToMenu()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        }
+
+        public void UnpauseGame()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+
         }
 
 

@@ -7,6 +7,7 @@ namespace OtakuGameJam
         internal override void EnterState(GamePlayManager gpm)
         {
             Debug.Log("Entered GameOver State...");
+            gpm.gameOverUI.SetActive(true);
 
         }
 
@@ -19,6 +20,7 @@ namespace OtakuGameJam
         internal override bool ExitState(GamePlayManager gpm)
         {
             Debug.Log("Exited GameOver State...");
+            gpm.gameOverUI.SetActive(false);
             return true;
         }
     }

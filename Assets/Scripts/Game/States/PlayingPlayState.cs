@@ -28,6 +28,15 @@ namespace OtakuGameJam
             {
                 gpm.hudLapTimeText.SetText(_lapTimer.TimeString);
             }
+
+            // check paused
+
+            bool paused = Input.GetKey(KeyCode.Escape);
+
+            if (paused)
+            {
+                gpm.ChangeState(Constants.PlayStateValues.Paused);
+            }
         }
 
         internal override bool ExitState(GamePlayManager gpm)
