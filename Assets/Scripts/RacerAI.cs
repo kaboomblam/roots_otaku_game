@@ -23,7 +23,7 @@ namespace OtakuGameJam
         // public float turnErrorMin;
         // public float turnErrorMax;
 
-        float timer = 3f;
+        // float timer = 3f;
 
         [Range(-1, 1.5f)]
         [SerializeField]
@@ -53,7 +53,6 @@ namespace OtakuGameJam
 
             specials = GetComponent<SpecialsManager>();
 
-            specials._specials = 5;
             // StartCoroutine("UserSpecial");
             InvokeRepeating("UserSpecial", 1, .5f);
         }
@@ -68,7 +67,7 @@ namespace OtakuGameJam
 
             KillOrthogonalForce();
 
-            _speedText.SetText($"{(rb.velocity.magnitude * 12.5).ToString("00")} KM/H");
+            // _speedText.SetText($"{(rb.velocity.magnitude * 12.5).ToString("00")} KM/H");
 
         }
 
@@ -155,21 +154,21 @@ namespace OtakuGameJam
             else
                 return;
         }
-        private void UserSpecial()
-        {
-            Debug.Log("Called");
-            int rando = Random.Range(0, 100);
+        // private void UserSpecial()
+        // {
+        //     Debug.Log("Called");
+        //     int rando = Random.Range(0, 100);
 
-            if (rando < 5 && specials._specials > 0)
-            {
+        //     if (rando < 5 && specials._specials > 0)
+        //     {
 
-                specials.TriggerSpecial();
-            }
-            if (rando > 95)
-            {
+        //         // specials.TriggerSpecial();
+        //     }
+        //     if (rando > 95)
+        //     {
 
-                specials.AddToSpecial();
-            }
-        }
+        //         specials.AddToSpecial();
+        //     }
+        // }
     }
 }

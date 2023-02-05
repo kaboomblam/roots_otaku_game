@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,30 +7,63 @@ namespace OtakuGameJam
 {
     public class SpecialsManager : MonoBehaviour
     {
-        public int _specials;
-        public int _maxSpecials;
-
+        [Range(3, 5)]
         public float _specialTimeout;
 
         [SerializeField]
-        private GameObject specialPrefab;
+        private GameObject stickySapPrefab;
 
-        public void TriggerSpecial()
+        private Rigidbody2D rb;
+
+        NPCBehaviour NPC;
+
+
+        public void TriggerSpecial(string specialType)
         {
-            if (_specials > 0)
-            {
+            NPC = GetComponent<NPCBehaviour>();
+            // try
+            // {
+            // }
+            // catch (Exception e)
+            // {
+            //     Debug.Log(e.Message);
+            // }
 
-                _specials--;
+            if (NPC.specialsCount > 0)
+                switch (specialType)
+                {
+                    case "Nitrous":
+                        {
+                            if (NPC.specialsCount >= 2)
+                            {
+                                Debug.Log("Using Nitro");
 
-                InstantiateSpecial();
-            }
+                                NPC.speed = 10;
+
+                            }
+                            break;
+                        }
+
+                    case "Stick Sap":
+                        {
+                            Debug.Log("Using StickSap");
+
+                            InstantiateSpecial();
+                            NPC.specialsCount--;
+
+                            break;
+                        }
+
+                }
         }
 
         private void InstantiateSpecial()
         {
 
             GameObject newSpecial = Instantiate(
-                specialPrefab, transform.position, transform.rotation);
+                stickySapPrefab, transform.position, transform.rotation);
+
+            BoxCollider2D bc = newSpecial.GetComponent<BoxCollider2D>();
 
             Destroy(newSpecial, _specialTimeout);
 
@@ -37,10 +71,10 @@ namespace OtakuGameJam
 
         public void AddToSpecial()
         {
-            if (_specials < _maxSpecials)
+            if (NPC.specialsCount < 5)
             {
 
-                _specials++;
+                NPC.specialsCount++;
 
             }
         }

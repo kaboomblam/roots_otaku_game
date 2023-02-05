@@ -40,7 +40,7 @@ namespace OtakuGameJam
 
             if (other.gameObject.CompareTag("Starting Line"))
             {
-                gamePlay.currentLap++;
+
             }
 
             // if (other.gameObject.CompareTag("Finish Line"))

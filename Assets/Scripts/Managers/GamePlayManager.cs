@@ -1,118 +1,86 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using OtakuGameJam.Attributes;
 using OtakuGameJam.Constants;
-using System;
-using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace OtakuGameJam
 {
     public class GamePlayManager : MonoBehaviour
     {
-        [Tooltip("Allows for GamePlay Manager to use Game wide Settings or Defaults")]
+        [Header("UI")]
         [SerializeField]
-        private bool _useGlobalSettings = false;
+        [Space]
+        public TMPro.TextMeshProUGUI DEBUG_StateText;
+        [Header("Countdown")]
+        public TMPro.TextMeshProUGUI countdownText;
+        public TMPro.TextMeshProUGUI goText;
+        public Button cancelButton;
+        public GameObject[] completeCountdownHideElements;
 
         [Space]
 
-        [Header("Game Settings")]
-        [Range(1, 5)]
+        [Header("Debug")]
         [SerializeField]
-        private int _laps = 3;
-
-        [HideInInspector]
-        public int currentLap = 0;
-
-
-        [HideInInspector]
-        public float currentTime = 0f;
-
-        [Header("Time Settings")]
-        [Range(0, 20)]
-        public int _countdownToStart = 3;
-
-        [Header("Debug Settings")]
+        private bool _useGlobalSettings;
+        [DisablePropertyControl("_useGlobalSettings", true)]
         [SerializeField]
-        private GamePlayState _playState = GamePlayState.Countdown;
+        private PlayStateValues _playState = PlayStateValues.Countdown;
 
-        [SerializeField]
-        private TextMeshProUGUI _timeText;
+        [DisablePropertyControl("_useGlobalSettings", true)]
+        [Range(3, 20)]
+        public int countdownToStart = 3;
 
-        [SerializeField]
-        private TextMeshProUGUI _lapText;
+        // Finite State Machine
+        // --------------------
+        PlayState currentState;
+        PlayState CountdownState = new CountdownPlayState();
+        PlayState PlayingState = new PlayingPlayState();
+        PlayState PausedState = new PausedPlayState();
+        PlayState GameOverState = new GameOverPlayState();
 
-        public GamePlayState playState
+        void Start()
         {
-            get { return _playState; }
-            private set
-            {
-                _playState = value;
-                UpdateGamePlayState(_playState);
-            }
+            currentState = GetStateFromEnum(_playState);
+
+            currentState.EnterState(this);
         }
 
-        private void Start()
+        void Update()
         {
-            if (_useGlobalSettings)
-            {
-                _laps = SettingsData.laps;
+            var currentPlayStateValue = GetStateFromEnum(_playState);
+            var stateHasBeenChangedManually = currentPlayStateValue != currentState;
 
-                _countdownToStart = SettingsData.countDownToStart;
+            if (stateHasBeenChangedManually) ChangeState(_playState);
 
-                UpdateGamePlayState(GamePlayState.Countdown);
-            }
-            else
-            {
-                UpdateGamePlayState(_playState);
-            }
+            // ---
+
+            currentState.UpdateState(this);
         }
 
-        private void Update()
+        public void ChangeState(PlayStateValues value)
         {
-            UpdateElapsedTime();
-            var t = TimeSpan.FromSeconds(currentTime);
-            // Debug.Log($"Current Time: {t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D2}");
-            // Debug.Log($"Current Time: {currentTime:C2}");
+            PlayState newState = GetStateFromEnum(value);
 
-            _timeText.SetText($"Time: {t.Minutes:D2}:{t.Seconds:D2}:{t.Milliseconds:D2}");
-            _lapText.SetText($"Lap: {currentLap}/{_laps}");
+            currentState.ExitState(this);
+            currentState = newState;
+            currentState.EnterState(this);
         }
 
-        #region GamePlayState
-
-        public void UpdateGamePlayState(GamePlayState newState)
+        private PlayState GetStateFromEnum(PlayStateValues value)
         {
-            switch (newState)
+            switch (value)
             {
-                case GamePlayState.Countdown:
-                    StartCoroutine(CountdownToStartTimer());
-                    break;
-                case GamePlayState.Playing:
-                    break;
-                case GamePlayState.Paused:
-                    break;
-                case GamePlayState.GameOver:
-                    break;
+                case PlayStateValues.Countdown:
+                    return CountdownState;
+                case PlayStateValues.Playing:
+                    return PlayingState;
+                case PlayStateValues.Paused:
+                    return PausedState;
+                case PlayStateValues.GameOver:
+                    return GameOverState;
+                default:
+                    return null;
             }
         }
-
-        #endregion
-
-
-        #region Time
-        IEnumerator CountdownToStartTimer()
-        {
-            while (_countdownToStart > 0)
-            {
-                yield return new WaitForSeconds(1f);
-                _countdownToStart--;
-                Debug.Log($"Countdown: {_countdownToStart}");
-            }
-        }
-
-        void UpdateElapsedTime() => currentTime += Time.deltaTime;
-
-
-        #endregion
     }
 }

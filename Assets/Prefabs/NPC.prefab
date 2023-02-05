@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4731266358973814216}
   - component: {fileID: 4731266358973814223}
   - component: {fileID: 4731266358973814217}
-  - component: {fileID: 2023916679}
-  - component: {fileID: -3197615304943141181}
+  - component: {fileID: 3978390787354988967}
+  - component: {fileID: 3612101638996843290}
   m_Layer: 0
   m_Name: NPC
   m_TagString: NPC
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4731266358973814221}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 165a5d8fe45b6c245a95c1c8fcc5f760, type: 3}
   m_Name: 
@@ -101,13 +101,34 @@ MonoBehaviour:
   driftFactor: 0.9
   maxTurnDistance: 2
   turnDistance: 0
-  turnErrorMin: 0
-  turnErrorMax: 0
-  errorFactor: 0
+  turnError: 0
   rb: {fileID: 0}
   waypointParent: {fileID: 0}
-  specials: {fileID: 0}
---- !u!114 &2023916679
+  _speedText: {fileID: 0}
+--- !u!114 &3978390787354988967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731266358973814221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb88e741b150d2489286a82ad14e1ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 8
+  turnSpeed: 7
+  turnDistance: 1.5
+  driftFactor: 0.85
+  isStuck: 0
+  stuckResetTimer: 3
+  specialsManager: {fileID: 0}
+  specialsCount: 0
+  easy: 0
+  normal: 0
+  hard: 0
+--- !u!114 &3612101638996843290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,22 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c30b3d63491fda04bb3752e22c04480e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _specials: 0
-  _maxSpecials: 5
   _specialTimeout: 2
-  specialPrefab: {fileID: 9118947522170395766, guid: 6a9552f16bb1d93439103ccd35e8d234, type: 3}
---- !u!114 &-3197615304943141181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4731266358973814221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c3a9f0143688234e9422ec4a0890ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  stickySapPrefab: {fileID: 9118947522170395766, guid: 6a9552f16bb1d93439103ccd35e8d234, type: 3}
 --- !u!1 &4731266360362335525
 GameObject:
   m_ObjectHideFlags: 0
