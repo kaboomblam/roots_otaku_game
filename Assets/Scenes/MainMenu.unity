@@ -3553,6 +3553,10 @@ PrefabInstance:
       propertyPath: carSelectSO
       value: 
       objectReference: {fileID: 11400000, guid: 58c7473807b7d7744bd5d117bbff91e7, type: 2}
+    - target: {fileID: 1311764964320019160, guid: fc6df81968f89b04b8e40181ce584571, type: 3}
+      propertyPath: menuManager
+      value: 
+      objectReference: {fileID: 1859529530}
     - target: {fileID: 1311764964320019165, guid: fc6df81968f89b04b8e40181ce584571, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4615,6 +4619,10 @@ PrefabInstance:
       propertyPath: carSelectSO
       value: 
       objectReference: {fileID: 11400000, guid: 6b6c222c47a40214381643fa045cf9d4, type: 2}
+    - target: {fileID: 1311764964320019160, guid: fc6df81968f89b04b8e40181ce584571, type: 3}
+      propertyPath: menuManager
+      value: 
+      objectReference: {fileID: 1859529530}
     - target: {fileID: 1311764964320019165, guid: fc6df81968f89b04b8e40181ce584571, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

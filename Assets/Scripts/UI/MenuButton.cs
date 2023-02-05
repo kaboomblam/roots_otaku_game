@@ -7,7 +7,6 @@ namespace OtakuGameJam
 
     public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
     {
-        // get audio source
         private AudioSource _audioSource;
         [SerializeField]
         MenuManager _menuManager;
